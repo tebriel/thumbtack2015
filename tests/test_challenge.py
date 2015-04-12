@@ -1,4 +1,4 @@
-from challenge import Challenge
+from challenge import Challenge, Request
 from nose.tools import assert_equals  # , assert_true, assert_false
 # from nose.plugins.skip import SkipTest
 
@@ -6,6 +6,12 @@ from nose.tools import assert_equals  # , assert_true, assert_false
 class TestChallenge():
     def setup(self):
         self.challenge = Challenge()
+
+    def test_process_input(self):
+        """Handles the input"""
+        self.challenge.process_input('1 2 3 5')
+        expected = Request(operands=[1, 2, 3], result=5)
+        assert_equals(expected, self.challenge.request)
 
     def test_example_three_num_one(self):
         """Handles '1 2 3 5'"""
