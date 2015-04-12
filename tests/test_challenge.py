@@ -68,3 +68,12 @@ class TestChallenge():
         ]
 
         assert_in(result, possible_results)
+
+    def test_format_output(self):
+        """Test that formatting the output works as expected"""
+        challenge = Challenge('1 2 3 0')
+        operands = ['1', '2', '3']
+        operators = ['+', '-']
+        result = challenge.format_output(operands, operators)
+        expected = '1 + 2 - 3'
+        assert_equals(result, expected)
