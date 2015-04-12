@@ -14,7 +14,7 @@ addition, subtraction, multiplication, and division, to get the fourth.
    `Invalid`.
 
 ```sh
-$ echo ' 1 2 3 5' | python challenge.py
+$ echo '1 2 3 5' | python challenge.py
 $ 3 + 2 * 1
 
 $ echo '4 6 3 2' | python challenge.py
