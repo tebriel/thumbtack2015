@@ -36,6 +36,6 @@ number of numbers in the string is not constant.
 $ echo '6 7 1 2 5 8' | python challenge.py
 $ 6 * 7 * 1 - 2 / 5
 
-$echo '1 2 3 4 5 6 3' | python challenge.py
+$ echo '1 2 3 4 5 6 3' | python challenge.py
 $ 1 + 2 + 3 - 4 - 5 + 6
 ```

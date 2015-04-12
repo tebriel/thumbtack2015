@@ -23,12 +23,12 @@ class Challenge(object):
         return eval(numbers[0])
 
     def __init__(self, str_input):
-        self.str_input = str_input
+        self.str_input = str_input.strip()
         inputs = str_input.split(' ')
         self.request = Request(operands=inputs[:-1], result=int(inputs[-1]))
 
     def __repr__(self):
-        return "Challenge(%s)"
+        return "Challenge(%s)" % (self.str_input)
 
     def run(self):
         permutes = permutations(self.request.operands,
@@ -50,4 +50,5 @@ class Challenge(object):
 if __name__ == '__main__':
     for line in sys.stdin:
         challenge = Challenge(line)
+        print(challenge)
         print(challenge.run())
