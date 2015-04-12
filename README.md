@@ -1,5 +1,7 @@
 # Thumbtack Code Challenge! #
 
+[![Build Status](https://travis-ci.org/tebriel/thumbtack2015.svg?branch=master)](https://travis-ci.org/tebriel/thumbtack2015)
+
 Write a Python program that takes in four numbers and determines the
 mathematical express than can combine the first three numbers, through
 addition, subtraction, multiplication, and division, to get the fourth.
