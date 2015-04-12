@@ -25,7 +25,7 @@ class Challenge(object):
         return "Challenge('%s')" % (self.str_input)
 
     @staticmethod
-    def evaluate_expression(numbers, operators):
+    def evaluate(numbers, operators):
         """Sets our left to right order of operations, then evaluates it"""
 
         to_exe = ""
@@ -53,18 +53,21 @@ class Challenge(object):
         replacement of the operators)"""
 
         # Get all the permutations of our operands
-        permutes = permutations(self.request.operands,
-                                len(self.request.operands))
+        total_digits = len(self.request.operands)
+
+        operand_perms = permutations(self.request.operands, total_digits)
+
         # Try each one
-        for permute in permutes:
+        for operand_perm in operand_perms:
+            operator_combos = combinations_with_replacement(OPERATORS,
+                                                            total_digits - 1)
             # Get all the possible combinations (with repeats) of the operators
-            combos = combinations_with_replacement(OPERATORS, len(permute) - 1)
             # Try each one
-            for combo in combos:
-                result = self.evaluate_expression(list(permute), combo)
+            for operator_combo in operator_combos:
+                result = self.evaluate(list(operand_perm), operator_combo)
 
                 if result == self.request.result:
-                    return self.format_output(permute, combo)
+                    return self.format_output(operand_perm, operator_combo)
 
         return 'Invalid'
 

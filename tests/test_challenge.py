@@ -11,12 +11,12 @@ class TestChallenge():
         expected = Request(operands=['1', '2', '3'], result=5)
         assert_equals(expected, challenge.request)
 
-    def test_evaluate_expression(self):
+    def test_evaluate(self):
         """Processes a combination of operands and operators"""
         challenge = Challenge('2 3 1 5')
         operands = ['2', '3', '1']
         operators = ['+', '*']
-        result = challenge.evaluate_expression(operands, operators)
+        result = challenge.evaluate(operands, operators)
         assert_equals(result, 5)
 
     def test_example_three_num_one(self):
