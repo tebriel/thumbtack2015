@@ -37,6 +37,18 @@ class Challenge(object):
 
         return "Challenge('%s')" % (self.str_input)
 
+    def format_output(self, operands, operators):
+        """Creates the output string for a completed challenge"""
+        # Append a space to make zip work properly results in '+ '
+        operators_str = ''.join(operators) + ' '
+        # Zip the operands and the operators results in [('1', '+'), ('2, ' ')]
+        groups = list(zip(operands, operators_str))
+        # Join each of the tuples together results in ['1 +', '2  ']
+        joined_groups = [' '.join(group) for group in groups]
+        # Join those, and strip the trailing whitespace results in '1 + 2'
+        seq = ' '.join(joined_groups).strip()
+        return seq
+
     def run(self):
         """Tries all pemutations of operands with all combinations (with
         replacement of the operators)"""
@@ -53,12 +65,7 @@ class Challenge(object):
                 result = self.evaluate_expression(list(permute), combo)
 
                 if result == self.request.result:
-                    # Make our output string
-                    combo_str = ''.join(combo) + ' '
-                    groups = list(zip(permute, combo_str))
-                    joined_groups = [' '.join(group) for group in groups]
-                    seq = ' '.join(joined_groups).strip()
-                    return seq
+                    return self.format_output(permute, combo)
 
         return 'Invalid'
 
