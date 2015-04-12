@@ -11,8 +11,8 @@ OPERATORS = ['+', '-', '*', '/']
 class Challenge(object):
     """PyCon2015 Thumbtack Challenge Solution"""
 
-    @classmethod
-    def evaluate_expression(cls, numbers, operators):
+    @staticmethod
+    def evaluate_expression(numbers, operators):
         """Sets our left to right order of operations, then evaluates it"""
 
         to_exe = ""
