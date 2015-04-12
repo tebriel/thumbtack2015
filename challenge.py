@@ -11,19 +11,6 @@ OPERATORS = ['+', '-', '*', '/']
 class Challenge(object):
     """PyCon2015 Thumbtack Challenge Solution"""
 
-    @staticmethod
-    def evaluate_expression(numbers, operators):
-        """Sets our left to right order of operations, then evaluates it"""
-
-        to_exe = ""
-        for operator in operators:
-            a = numbers.pop(0)
-            b = numbers.pop(0)
-            to_exe = "(%s %s %s)" % (a, operator, b)
-            numbers.insert(0, to_exe)
-
-        return eval(numbers[0])
-
     def __init__(self, str_input):
         """Prep ourselves for fun computations"""
 
@@ -37,7 +24,21 @@ class Challenge(object):
 
         return "Challenge('%s')" % (self.str_input)
 
-    def format_output(self, operands, operators):
+    @staticmethod
+    def evaluate_expression(numbers, operators):
+        """Sets our left to right order of operations, then evaluates it"""
+
+        to_exe = ""
+        for operator in operators:
+            a = numbers.pop(0)
+            b = numbers.pop(0)
+            to_exe = "(%s %s %s)" % (a, operator, b)
+            numbers.insert(0, to_exe)
+
+        return eval(numbers[0])
+
+    @staticmethod
+    def format_output(operands, operators):
         """Creates the output string for a completed challenge"""
         # Append a space to make zip work properly results in '+ '
         operators = operators + (' ',)
