@@ -40,14 +40,12 @@ class Challenge(object):
     def format_output(self, operands, operators):
         """Creates the output string for a completed challenge"""
         # Append a space to make zip work properly results in '+ '
-        operators_str = ''.join(operators) + ' '
-        # Zip the operands and the operators results in [('1', '+'), ('2, ' ')]
-        groups = list(zip(operands, operators_str))
-        # Join each of the tuples together results in ['1 +', '2  ']
-        joined_groups = [' '.join(group) for group in groups]
-        # Join those, and strip the trailing whitespace results in '1 + 2'
-        seq = ' '.join(joined_groups).strip()
-        return seq
+        operators = operators + (' ',)
+        result = []
+        for idx, operand in enumerate(operands):
+            result.append("%s %s" % (operand, operators[idx]))
+
+        return ' '.join(result).strip()
 
     def run(self):
         """Tries all pemutations of operands with all combinations (with
