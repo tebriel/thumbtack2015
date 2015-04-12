@@ -50,5 +50,4 @@ class Challenge(object):
 if __name__ == '__main__':
     for line in sys.stdin:
         challenge = Challenge(line)
-        print(challenge)
         print(challenge.run())
