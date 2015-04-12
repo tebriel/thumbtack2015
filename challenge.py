@@ -2,7 +2,7 @@
 
 import sys
 from collections import namedtuple
-from itertools import combinations_with_replacement
+from itertools import combinations_with_replacement, permutations
 
 Request = namedtuple('Request', ['operands', 'result'])
 OPERATORS = ['+', '-', '*', '/']
@@ -22,14 +22,16 @@ class Challenge(object):
         self.request = Request(operands=inputs[:-1], result=int(inputs[-1]))
 
     def try_combinations(self):
-        combos = combinations_with_replacement(OPERATORS,
-                                               len(self.request.operands) - 1)
-        for combo in combos:
-            combo_str = ''.join(combo) + ' '
-            groups = list(zip(self.request.operands, combo_str))
-            seq = ' '.join([' '.join(group) for group in groups]).strip()
-            if eval(seq) == self.request.result:
-                return seq
+        permutes = permutations(self.request.operands,
+                                len(self.request.operands))
+        for permute in permutes:
+            combos = combinations_with_replacement(OPERATORS, len(permute) - 1)
+            for combo in combos:
+                combo_str = ''.join(combo) + ' '
+                groups = list(zip(permute, combo_str))
+                seq = ' '.join([' '.join(group) for group in groups]).strip()
+                if eval(seq) == self.request.result:
+                    return seq
         return 'Invalid'
 
 
