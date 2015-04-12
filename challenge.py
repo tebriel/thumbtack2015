@@ -9,10 +9,12 @@ OPERATORS = ['+', '-', '*', '/']
 
 
 class Challenge(object):
+    """PyCon2015 Thumbtack Challenge Solution"""
 
     @classmethod
     def evaluate_expression(cls, numbers, operators):
         """Sets our left to right order of operations, then evaluates it"""
+
         to_exe = ""
         for operator in operators:
             a = numbers.pop(0)
@@ -24,6 +26,7 @@ class Challenge(object):
 
     def __init__(self, str_input):
         """Prep ourselves for fun computations"""
+
         # Strip the \n from the input for __repr__ later
         self.str_input = str_input.strip()
         inputs = str_input.split(' ')
@@ -31,9 +34,13 @@ class Challenge(object):
 
     def __repr__(self):
         """Show how to recreate ourselves"""
+
         return "Challenge('%s')" % (self.str_input)
 
     def run(self):
+        """Tries all pemutations of operands with all combinations (with
+        replacement of the operators)"""
+
         # Get all the permutations of our operands
         permutes = permutations(self.request.operands,
                                 len(self.request.operands))
