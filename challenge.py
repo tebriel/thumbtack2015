@@ -23,28 +23,36 @@ class Challenge(object):
         return eval(numbers[0])
 
     def __init__(self, str_input):
+        """Prep ourselves for fun computations"""
+        # Strip the \n from the input for __repr__ later
         self.str_input = str_input.strip()
         inputs = str_input.split(' ')
         self.request = Request(operands=inputs[:-1], result=int(inputs[-1]))
 
     def __repr__(self):
-        return "Challenge(%s)" % (self.str_input)
+        """Show how to recreate ourselves"""
+        return "Challenge('%s')" % (self.str_input)
 
     def run(self):
+        # Get all the permutations of our operands
         permutes = permutations(self.request.operands,
                                 len(self.request.operands))
+        # Try each one
         for permute in permutes:
+            # Get all the possible combinations (with repeats) of the operators
             combos = combinations_with_replacement(OPERATORS, len(permute) - 1)
+            # Try each one
             for combo in combos:
-                # Make our string
-                combo_str = ''.join(combo) + ' '
-                groups = list(zip(permute, combo_str))
-                seq = ' '.join([' '.join(group) for group in groups]).strip()
-
                 result = self.evaluate_expression(list(permute), combo)
 
                 if result == self.request.result:
+                    # Make our output string
+                    combo_str = ''.join(combo) + ' '
+                    groups = list(zip(permute, combo_str))
+                    joined_groups = [' '.join(group) for group in groups]
+                    seq = ' '.join(joined_groups).strip()
                     return seq
+
         return 'Invalid'
 
 if __name__ == '__main__':
