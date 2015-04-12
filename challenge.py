@@ -27,13 +27,24 @@ class Challenge(object):
         for permute in permutes:
             combos = combinations_with_replacement(OPERATORS, len(permute) - 1)
             for combo in combos:
+                # Make our string
                 combo_str = ''.join(combo) + ' '
                 groups = list(zip(permute, combo_str))
                 seq = ' '.join([' '.join(group) for group in groups]).strip()
-                if eval(seq) == self.request.result:
+
+                result = self.evaluate_expression(list(permute), combo)
+
+                if float(result) == self.request.result:
                     return seq
         return 'Invalid'
 
+    def evaluate_expression(self, numbers, operators):
+        for operator in operators:
+            a = numbers.pop(0)
+            b = numbers.pop(0)
+            total = "%f" % (eval("%s%s%s" % (a, operator, b)))
+            numbers.insert(0, total)
+        return numbers[0]
 
 if __name__ == '__main__':
     challenge = Challenge()
