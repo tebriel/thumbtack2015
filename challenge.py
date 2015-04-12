@@ -12,28 +12,25 @@ class Challenge(object):
 
     @classmethod
     def evaluate_expression(cls, numbers, operators):
+        """Sets our left to right order of operations, then evaluates it"""
         to_exe = ""
         for operator in operators:
             a = numbers.pop(0)
             b = numbers.pop(0)
             to_exe = "(%s %s %s)" % (a, operator, b)
-            # total = "%f" % (eval("%s%s%s" % (a, operator, b)))
             numbers.insert(0, to_exe)
 
         return eval(numbers[0])
 
-    def __init__(self):
-        pass
-
-    def run(self, str_input):
-        self.process_input(str_input)
-        return self.try_combinations()
-
-    def process_input(self, str_input):
+    def __init__(self, str_input):
+        self.str_input = str_input
         inputs = str_input.split(' ')
         self.request = Request(operands=inputs[:-1], result=int(inputs[-1]))
 
-    def try_combinations(self):
+    def __repr__(self):
+        return "Challenge(%s)"
+
+    def run(self):
         permutes = permutations(self.request.operands,
                                 len(self.request.operands))
         for permute in permutes:
@@ -51,6 +48,6 @@ class Challenge(object):
         return 'Invalid'
 
 if __name__ == '__main__':
-    challenge = Challenge()
     for line in sys.stdin:
-        print(challenge.run(line))
+        challenge = Challenge(line)
+        print(challenge.run())
