@@ -10,6 +10,18 @@ OPERATORS = ['+', '-', '*', '/']
 
 class Challenge(object):
 
+    @classmethod
+    def evaluate_expression(cls, numbers, operators):
+        to_exe = ""
+        for operator in operators:
+            a = numbers.pop(0)
+            b = numbers.pop(0)
+            to_exe = "(%s %s %s)" % (a, operator, b)
+            # total = "%f" % (eval("%s%s%s" % (a, operator, b)))
+            numbers.insert(0, to_exe)
+
+        return eval(numbers[0])
+
     def __init__(self):
         pass
 
@@ -34,17 +46,9 @@ class Challenge(object):
 
                 result = self.evaluate_expression(list(permute), combo)
 
-                if float(result) == self.request.result:
+                if result == self.request.result:
                     return seq
         return 'Invalid'
-
-    def evaluate_expression(self, numbers, operators):
-        for operator in operators:
-            a = numbers.pop(0)
-            b = numbers.pop(0)
-            total = "%f" % (eval("%s%s%s" % (a, operator, b)))
-            numbers.insert(0, total)
-        return numbers[0]
 
 if __name__ == '__main__':
     challenge = Challenge()
