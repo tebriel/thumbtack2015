@@ -28,14 +28,16 @@ class Challenge(object):
     def evaluate(numbers, operators):
         """Sets our left to right order of operations, then evaluates it"""
 
+        # It's a tuple, so let's convert it to a list
+        operands = list(numbers)
         to_exe = ""
         for operator in operators:
-            a = numbers.pop(0)
-            b = numbers.pop(0)
+            a = operands.pop(0)
+            b = operands.pop(0)
             to_exe = "(%s %s %s)" % (a, operator, b)
-            numbers.insert(0, to_exe)
+            operands.insert(0, to_exe)
 
-        return eval(numbers[0])
+        return eval(operands[0])
 
     @staticmethod
     def format_output(operands, operators):
@@ -48,31 +50,39 @@ class Challenge(object):
 
         return ' '.join(result).strip()
 
+    def run_operator_combos(self, operands, operator_combos):
+        """Get all the possible combinations (with repeats) of the operators
+        Try each one"""
+
+        for operator_combo in operator_combos:
+            operator_perms = permutations(operator_combo, len(operator_combo))
+            for operators in operator_perms:
+                result = self.evaluate(operands, operators)
+
+                if result == self.request.result:
+                    return self.format_output(operands, operators)
+
+        return 'Invalid'
+
     def run(self):
         """Tries all pemutations of operands with all combinations (with
         replacement of the operators)"""
 
+        result = 'Invalid'
         # Get all the permutations of our operands
         total_digits = len(self.request.operands)
 
         operand_perms = permutations(self.request.operands, total_digits)
 
         # Try each one
-        for operand_perm in operand_perms:
+        for operands in operand_perms:
             operator_combos = combinations_with_replacement(OPERATORS,
                                                             total_digits - 1)
-            # Get all the possible combinations (with repeats) of the operators
-            # Try each one
-            for operator_combo in operator_combos:
-                operator_perms = permutations(operator_combo,
-                                              len(operator_combo))
-                for operator_perm in operator_perms:
-                    result = self.evaluate(list(operand_perm), operator_perm)
+            result = self.run_operator_combos(operands, operator_combos)
+            if result != 'Invalid':
+                break
 
-                    if result == self.request.result:
-                        return self.format_output(operand_perm, operator_perm)
-
-        return 'Invalid'
+        return result
 
 if __name__ == '__main__':
     for line in sys.stdin:
