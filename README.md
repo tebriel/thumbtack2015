@@ -17,13 +17,13 @@ addition, subtraction, multiplication, and division, to get the fourth.
 
 ```sh
 $ echo '1 2 3 5' | python challenge.py
-$ 3 + 2 * 1
+3 + 2 * 1
 
 $ echo '4 6 3 2' | python challenge.py
-$ 4 / 6 * 3
+4 / 6 * 3
 
 $ echo '1 1 1 6' | python challenge.py
-$ Invalid
+Invalid
 ```
 
 ## Win a Thumbtack beer mug! ##
@@ -34,8 +34,8 @@ number of numbers in the string is not constant.
 
 ```sh
 $ echo '6 7 1 2 5 8' | python challenge.py
-$ 6 * 7 * 1 - 2 / 5
+6 * 7 * 1 - 2 / 5
 
 $ echo '1 2 3 4 5 6 3' | python challenge.py
-$ 1 + 2 + 3 - 4 - 5 + 6
+1 + 2 + 3 - 4 - 5 + 6
 ```
