@@ -64,10 +64,13 @@ class Challenge(object):
             # Get all the possible combinations (with repeats) of the operators
             # Try each one
             for operator_combo in operator_combos:
-                result = self.evaluate(list(operand_perm), operator_combo)
+                operator_perms = permutations(operator_combo,
+                                              len(operator_combo))
+                for operator_perm in operator_perms:
+                    result = self.evaluate(list(operand_perm), operator_perm)
 
-                if result == self.request.result:
-                    return self.format_output(operand_perm, operator_combo)
+                    if result == self.request.result:
+                        return self.format_output(operand_perm, operator_perm)
 
         return 'Invalid'
 

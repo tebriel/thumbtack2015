@@ -25,7 +25,8 @@ class TestChallenge():
         result = challenge.run()
         possible_results = [
             '2 + 3 * 1',
-            '3 + 2 * 1'
+            '3 + 2 * 1',
+            '1 * 2 + 3'
         ]
 
         assert_in(result, possible_results)
@@ -57,6 +58,19 @@ class TestChallenge():
         ]
 
         assert_in(result, possible_results)
+
+    def test_evaluate_subtract_multiply(self):
+        """Handles ('11', '11', '1') ('*', '-')"""
+        challenge = Challenge('1 11 11 120')
+        result = challenge.evaluate(['11', '11', '1'], ('*', '-'))
+        assert_equals(result, 120)
+
+    def test_subtract_multiply(self):
+        """Handles '1 11 11 120'"""
+        challenge = Challenge('1 11 11 120')
+        result = challenge.run()
+        expected = '11 * 11 - 1'
+        assert_equals(result, expected)
 
     def test_example_five_num_two(self):
         """Handles '1 2 3 4 5 6 3'"""
