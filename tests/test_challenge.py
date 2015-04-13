@@ -48,7 +48,7 @@ class TestChallenge():
         result = challenge.run()
         assert_equals(result, 'Invalid')
 
-    def test_example_five_num_one(self):
+    def test_example_five_num(self):
         """Handles '6 7 1 2 5 8'"""
         challenge = Challenge('6 7 1 2 5 8')
         result = challenge.run()
@@ -72,7 +72,7 @@ class TestChallenge():
         expected = '11 * 11 - 1'
         assert_equals(result, expected)
 
-    def test_example_five_num_two(self):
+    def test_example_six_num(self):
         """Handles '1 2 3 4 5 6 3'"""
         challenge = Challenge('1 2 3 4 5 6 3')
         result = challenge.run()
@@ -91,3 +91,10 @@ class TestChallenge():
         result = challenge.format_output(operands, operators)
         expected = '1 + 2 - 3'
         assert_equals(result, expected)
+
+    def test_ten_num(self):
+        """Handles '1 1 1 1 1 1 1 1 1 1 10'"""
+
+        challenge = Challenge('1 1 1 1 1 1 1 1 1 1 9')
+        result = challenge.run()
+        assert_equals(result, '1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 * 1')
