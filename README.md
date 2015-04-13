@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/tebriel/thumbtack2015.svg?branch=master)](https://travis-ci.org/tebriel/thumbtack2015)
 
 Write a Python program that takes in four numbers and determines the
-mathematical express than can combine the first three numbers, through
+mathematical expression than can combine the first three numbers, through
 addition, subtraction, multiplication, and division, to get the fourth.
 
 *  Input will be a space-separated string of four positive integers on `stdin`.
